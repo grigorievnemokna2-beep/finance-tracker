@@ -85,7 +85,7 @@ const Budget = {
 
     populateBudgetCategories() {
         const select = document.getElementById('budget-category');
-        const categories = Store.getCategories('expense');
+        const categories = Store.getCategories('expense').filter(c => c !== 'Сбережение');
         select.innerHTML = categories.map(c => `<option value="${c}">${c}</option>`).join('');
     },
 

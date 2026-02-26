@@ -218,6 +218,30 @@ a {
     font-weight: 600;
 }
 
+/* Savings summary on dashboard */
+.summary-card-savings {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    margin-top: 8px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--primary);
+}
+
+.savings-badge {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.savings-month-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--primary);
+}
+
 /* ===== Section Header ===== */
 .section-header {
     display: flex;

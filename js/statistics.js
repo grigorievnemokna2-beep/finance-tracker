@@ -36,7 +36,7 @@ const Statistics = {
     },
 
     renderCategoryChart() {
-        const transactions = this.getFilteredTransactions().filter(t => t.type === 'expense');
+        const transactions = this.getFilteredTransactions().filter(t => t.type === 'expense' && t.category !== 'Сбережение');
 
         // Group by category
         const grouped = {};
@@ -130,7 +130,7 @@ const Statistics = {
             filtered.forEach(t => {
                 const amt = convertToByn(t.amount, t.currency);
                 if (t.type === 'income') inc += amt;
-                else exp += amt;
+                else if (t.category !== 'Сбережение') exp += amt;
             });
             incomeData.push(inc);
             expenseData.push(exp);
@@ -208,12 +208,11 @@ const Statistics = {
         transactions.forEach(t => {
             const amt = convertToByn(t.amount, t.currency);
             if (t.type === 'income') totalIncome += amt;
-            else totalExpense += amt;
+            else if (t.category !== 'Сбережение') totalExpense += amt;
         });
 
-        const avgExpense = txCount > 0
-            ? totalExpense / transactions.filter(t => t.type === 'expense').length || 0
-            : 0;
+        const expenseCount = transactions.filter(t => t.type === 'expense' && t.category !== 'Сбережение').length;
+        const avgExpense = expenseCount > 0 ? totalExpense / expenseCount : 0;
 
         const container = document.getElementById('stats-summary');
         container.innerHTML = `

@@ -9,18 +9,33 @@ const Dashboard = {
 
         let totalIncome = 0;
         let totalExpense = 0;
+        let totalSaved = 0;
 
         transactions.forEach(t => {
             const amountByn = convertToByn(t.amount, t.currency);
-            if (t.type === 'income') totalIncome += amountByn;
-            else totalExpense += amountByn;
+            if (t.type === 'income') {
+                totalIncome += amountByn;
+            } else if (t.category === 'Сбережение') {
+                totalSaved += amountByn;
+            } else {
+                totalExpense += amountByn;
+            }
         });
 
-        const balance = totalIncome - totalExpense;
+        const balance = totalIncome - totalExpense - totalSaved;
 
         document.getElementById('balance-amount').textContent = formatMoney(balance, 'BYN');
         document.getElementById('income-amount').textContent = formatMoney(totalIncome, 'BYN');
         document.getElementById('expense-amount').textContent = formatMoney(totalExpense, 'BYN');
+
+        // Savings summary
+        const savingsCard = document.getElementById('savings-summary-card');
+        if (totalSaved > 0) {
+            savingsCard.style.display = '';
+            document.getElementById('savings-month-amount').textContent = formatMoney(totalSaved, 'BYN');
+        } else {
+            savingsCard.style.display = 'none';
+        }
 
         // Balance card color
         const balanceCard = document.querySelector('.balance-card');
