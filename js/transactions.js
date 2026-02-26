@@ -187,6 +187,27 @@ const Transactions = {
             Store.addTransaction(data);
         }
 
+        // Auto-savings: convert to USD and add to savings
+        if (data.category === 'Сбережение') {
+            const rates = Store.getSettings().exchangeRates;
+            let usdAmount;
+            if (data.currency === 'USD') {
+                usdAmount = data.amount;
+            } else {
+                const byn = convertToByn(data.amount, data.currency);
+                usdAmount = byn / (rates.USD || 3.27);
+            }
+            usdAmount = Math.round(usdAmount * 100) / 100;
+
+            Store.addSaving({
+                id: generateId(),
+                type: 'deposit',
+                amount: usdAmount,
+                note: data.description || `Из операции (${formatMoney(data.amount, data.currency)})`,
+                date: data.date
+            });
+        }
+
         App.closeModal('modal-transaction');
         App.refresh();
     },

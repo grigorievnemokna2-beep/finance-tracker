@@ -93,6 +93,7 @@ function getCategoryEmoji(category) {
         'Зарплата': '\uD83D\uDCB0',
         'Подработка': '\uD83D\uDCBB',
         'Инвестиции': '\uD83D\uDCC8',
+        'Сбережение': '\uD83D\uDCB0',
         'Другое': '\uD83D\uDCCC'
     };
     return map[category] || '\uD83D\uDCCC';
