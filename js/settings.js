@@ -18,6 +18,7 @@ const Settings = {
         document.getElementById('setting-currency').value = settings.defaultCurrency;
         document.getElementById('rate-usd').value = settings.exchangeRates.USD;
         document.getElementById('rate-eur').value = settings.exchangeRates.EUR;
+        document.getElementById('rate-rub').value = settings.exchangeRates.RUB;
     },
 
     renderCategories() {
@@ -56,13 +57,19 @@ const Settings = {
         // Exchange rates
         document.getElementById('rate-usd').addEventListener('change', (e) => {
             const rates = Store.getSettings().exchangeRates;
-            rates.USD = parseFloat(e.target.value) || 92;
+            rates.USD = parseFloat(e.target.value) || 3.27;
             Store.updateSettings({ exchangeRates: rates });
         });
 
         document.getElementById('rate-eur').addEventListener('change', (e) => {
             const rates = Store.getSettings().exchangeRates;
-            rates.EUR = parseFloat(e.target.value) || 100;
+            rates.EUR = parseFloat(e.target.value) || 3.55;
+            Store.updateSettings({ exchangeRates: rates });
+        });
+
+        document.getElementById('rate-rub').addEventListener('change', (e) => {
+            const rates = Store.getSettings().exchangeRates;
+            rates.RUB = parseFloat(e.target.value) || 0.035;
             Store.updateSettings({ exchangeRates: rates });
         });
 

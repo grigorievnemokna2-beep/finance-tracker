@@ -24,9 +24,9 @@ const Budget = {
             const budget = budgets[cat];
             const spent = transactions
                 .filter(t => t.category === cat)
-                .reduce((sum, t) => sum + convertToRub(t.amount, t.currency), 0);
+                .reduce((sum, t) => sum + convertToByn(t.amount, t.currency), 0);
 
-            const limitRub = convertToRub(budget.limit, budget.currency);
+            const limitRub = convertToByn(budget.limit, budget.currency);
             const pct = limitRub > 0 ? Math.min((spent / limitRub) * 100, 100) : 0;
             const colorClass = pct < 70 ? 'green' : pct < 90 ? 'yellow' : 'red';
 
@@ -34,7 +34,7 @@ const Budget = {
                 <div class="budget-item">
                     <div class="budget-item-header">
                         <span class="budget-category">${getCategoryEmoji(cat)} ${cat}</span>
-                        <span class="budget-amounts">${formatMoney(spent, 'RUB')} / ${formatMoney(budget.limit, budget.currency)}</span>
+                        <span class="budget-amounts">${formatMoney(spent, 'BYN')} / ${formatMoney(budget.limit, budget.currency)}</span>
                     </div>
                     <div class="budget-bar">
                         <div class="budget-bar-fill ${colorClass}" style="width:${pct}%"></div>

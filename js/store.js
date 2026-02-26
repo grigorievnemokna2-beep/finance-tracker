@@ -11,8 +11,8 @@ const DEFAULT_DATA = {
     budgets: {},
     settings: {
         theme: 'auto',
-        defaultCurrency: 'RUB',
-        exchangeRates: { USD: 92, EUR: 100 }
+        defaultCurrency: 'BYN',
+        exchangeRates: { USD: 3.27, EUR: 3.55, RUB: 0.035 }
     }
 };
 

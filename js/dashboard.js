@@ -11,16 +11,16 @@ const Dashboard = {
         let totalExpense = 0;
 
         transactions.forEach(t => {
-            const amountRub = convertToRub(t.amount, t.currency);
-            if (t.type === 'income') totalIncome += amountRub;
-            else totalExpense += amountRub;
+            const amountByn = convertToByn(t.amount, t.currency);
+            if (t.type === 'income') totalIncome += amountByn;
+            else totalExpense += amountByn;
         });
 
         const balance = totalIncome - totalExpense;
 
-        document.getElementById('balance-amount').textContent = formatMoney(balance, 'RUB');
-        document.getElementById('income-amount').textContent = formatMoney(totalIncome, 'RUB');
-        document.getElementById('expense-amount').textContent = formatMoney(totalExpense, 'RUB');
+        document.getElementById('balance-amount').textContent = formatMoney(balance, 'BYN');
+        document.getElementById('income-amount').textContent = formatMoney(totalIncome, 'BYN');
+        document.getElementById('expense-amount').textContent = formatMoney(totalExpense, 'BYN');
 
         // Balance card color
         const balanceCard = document.querySelector('.balance-card');

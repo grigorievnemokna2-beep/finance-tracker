@@ -5,6 +5,7 @@ function generateId() {
 }
 
 const CURRENCY_SYMBOLS = {
+    BYN: 'Br',
     RUB: '\u20bd',
     USD: '$',
     EUR: '\u20ac'
@@ -19,8 +20,8 @@ function formatMoney(amount, currency) {
     return `${amount < 0 ? '-' : ''}${formatted} ${sym}`;
 }
 
-function convertToRub(amount, currency) {
-    if (currency === 'RUB') return amount;
+function convertToByn(amount, currency) {
+    if (currency === 'BYN') return amount;
     const rates = Store.getSettings().exchangeRates;
     const rate = rates[currency] || 1;
     return amount * rate;

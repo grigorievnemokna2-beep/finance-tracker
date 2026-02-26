@@ -41,7 +41,7 @@ const Statistics = {
         // Group by category
         const grouped = {};
         transactions.forEach(t => {
-            const amount = convertToRub(t.amount, t.currency);
+            const amount = convertToByn(t.amount, t.currency);
             grouped[t.category] = (grouped[t.category] || 0) + amount;
         });
 
@@ -85,7 +85,7 @@ const Statistics = {
                             label: (ctx) => {
                                 const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
                                 const pct = ((ctx.parsed / total) * 100).toFixed(1);
-                                return `${ctx.label}: ${formatMoney(ctx.parsed, 'RUB')} (${pct}%)`;
+                                return `${ctx.label}: ${formatMoney(ctx.parsed, 'BYN')} (${pct}%)`;
                             }
                         }
                     }
@@ -128,7 +128,7 @@ const Statistics = {
             const filtered = filterTransactionsByMonth(allTransactions, monthStr);
             let inc = 0, exp = 0;
             filtered.forEach(t => {
-                const amt = convertToRub(t.amount, t.currency);
+                const amt = convertToByn(t.amount, t.currency);
                 if (t.type === 'income') inc += amt;
                 else exp += amt;
             });
@@ -176,7 +176,7 @@ const Statistics = {
                     },
                     tooltip: {
                         callbacks: {
-                            label: (ctx) => `${ctx.dataset.label}: ${formatMoney(ctx.parsed.y, 'RUB')}`
+                            label: (ctx) => `${ctx.dataset.label}: ${formatMoney(ctx.parsed.y, 'BYN')}`
                         }
                     }
                 },
@@ -206,7 +206,7 @@ const Statistics = {
         let txCount = transactions.length;
 
         transactions.forEach(t => {
-            const amt = convertToRub(t.amount, t.currency);
+            const amt = convertToByn(t.amount, t.currency);
             if (t.type === 'income') totalIncome += amt;
             else totalExpense += amt;
         });
@@ -219,11 +219,11 @@ const Statistics = {
         container.innerHTML = `
             <div class="stat-card">
                 <div class="stat-label">Всего доходов</div>
-                <div class="stat-value" style="color:var(--income-color)">${formatMoney(totalIncome, 'RUB')}</div>
+                <div class="stat-value" style="color:var(--income-color)">${formatMoney(totalIncome, 'BYN')}</div>
             </div>
             <div class="stat-card">
                 <div class="stat-label">Всего расходов</div>
-                <div class="stat-value" style="color:var(--expense-color)">${formatMoney(totalExpense, 'RUB')}</div>
+                <div class="stat-value" style="color:var(--expense-color)">${formatMoney(totalExpense, 'BYN')}</div>
             </div>
             <div class="stat-card">
                 <div class="stat-label">Операций</div>
@@ -231,7 +231,7 @@ const Statistics = {
             </div>
             <div class="stat-card">
                 <div class="stat-label">Ср. расход</div>
-                <div class="stat-value">${formatMoney(avgExpense, 'RUB')}</div>
+                <div class="stat-value">${formatMoney(avgExpense, 'BYN')}</div>
             </div>
         `;
     }
