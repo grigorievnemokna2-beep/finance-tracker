@@ -84,6 +84,7 @@ const App = {
             case 'dashboard': Dashboard.render(); break;
             case 'transactions': Transactions.render(); break;
             case 'statistics': Statistics.render(); break;
+            case 'savings': Savings.render(); break;
             case 'budget': Budget.render(); break;
             case 'settings': Settings.render(); break;
         }

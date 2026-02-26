@@ -27,21 +27,21 @@
             <div class="page-content">
                 <div class="balance-card">
                     <span class="balance-label">Баланс за месяц</span>
-                    <span id="balance-amount" class="balance-amount">0 Б̶</span>
+                    <span id="balance-amount" class="balance-amount">0 Br</span>
                 </div>
                 <div class="summary-cards">
                     <div class="summary-card income">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
                         <div>
                             <span class="summary-label">Доходы</span>
-                            <span id="income-amount" class="summary-amount">0 Б̶</span>
+                            <span id="income-amount" class="summary-amount">0 Br</span>
                         </div>
                     </div>
                     <div class="summary-card expense">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
                         <div>
                             <span class="summary-label">Расходы</span>
-                            <span id="expense-amount" class="summary-amount">0 Б̶</span>
+                            <span id="expense-amount" class="summary-amount">0 Br</span>
                         </div>
                     </div>
                 </div>
@@ -146,22 +146,22 @@
                     <div class="setting-item">
                         <span>По умолчанию</span>
                         <select id="setting-currency" class="filter-select">
-                            <option value="BYN">Б̶ Бел. рубль</option>
+                            <option value="BYN">Br Бел. рубль</option>
                             <option value="RUB">₽ Рос. рубль</option>
                             <option value="USD">$ Доллар</option>
                             <option value="EUR">€ Евро</option>
                         </select>
                     </div>
                     <div class="setting-item">
-                        <span>Курс USD (к Б̶)</span>
+                        <span>Курс USD (к Br)</span>
                         <input type="number" id="rate-usd" class="setting-input" step="0.01" min="0">
                     </div>
                     <div class="setting-item">
-                        <span>Курс EUR (к Б̶)</span>
+                        <span>Курс EUR (к Br)</span>
                         <input type="number" id="rate-eur" class="setting-input" step="0.01" min="0">
                     </div>
                     <div class="setting-item">
-                        <span>Курс RUB (к Б̶)</span>
+                        <span>Курс RUB (к Br)</span>
                         <input type="number" id="rate-rub" class="setting-input" step="0.0001" min="0">
                     </div>
                 </div>
@@ -191,7 +191,85 @@
             </div>
         </section>
 
+        <!-- ===== SAVINGS ===== -->
+        <section id="page-savings" class="page">
+            <header class="page-header">
+                <h1>Сбережения</h1>
+                <button id="add-saving-btn" class="icon-btn" aria-label="Пополнить">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+                </button>
+            </header>
+            <div class="page-content">
+                <div class="savings-total-card">
+                    <span class="savings-label">Всего накоплено</span>
+                    <span id="savings-total-usd" class="savings-total">$0</span>
+                    <span id="savings-total-byn" class="savings-converted">≈ 0 Br</span>
+                </div>
+                <div class="savings-converter">
+                    <h3>Калькулятор</h3>
+                    <div class="converter-row">
+                        <div class="converter-field">
+                            <input type="number" id="conv-amount" step="0.01" min="0" placeholder="0" value="100">
+                            <select id="conv-from" class="filter-select">
+                                <option value="USD">$ USD</option>
+                                <option value="BYN">Br BYN</option>
+                                <option value="EUR">€ EUR</option>
+                                <option value="RUB">₽ RUB</option>
+                            </select>
+                        </div>
+                        <div class="converter-arrow">→</div>
+                        <div class="converter-field">
+                            <div id="conv-result" class="conv-result">0</div>
+                            <select id="conv-to" class="filter-select">
+                                <option value="BYN">Br BYN</option>
+                                <option value="USD">$ USD</option>
+                                <option value="EUR">€ EUR</option>
+                                <option value="RUB">₽ RUB</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="converter-rate" id="conv-rate-info"></div>
+                </div>
+                <div class="section-header" style="margin-top:20px">
+                    <h2>История</h2>
+                </div>
+                <div id="savings-list" class="transactions-list">
+                    <div class="empty-state">Нет записей</div>
+                </div>
+            </div>
+        </section>
+
         <!-- ===== MODALS ===== -->
+
+        <!-- Add Saving Modal -->
+        <div id="modal-saving" class="modal">
+            <div class="modal-overlay"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Сбережения</h2>
+                    <button class="modal-close" aria-label="Закрыть">&times;</button>
+                </div>
+                <form id="saving-form">
+                    <div class="type-toggle">
+                        <button type="button" class="saving-type-btn active" data-type="deposit">Пополнить</button>
+                        <button type="button" class="saving-type-btn" data-type="withdraw">Снять</button>
+                    </div>
+                    <div class="form-group">
+                        <label for="saving-amount">Сумма в $</label>
+                        <input type="number" id="saving-amount" step="0.01" min="0" required placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="saving-note">Заметка</label>
+                        <input type="text" id="saving-note" placeholder="Необязательно">
+                    </div>
+                    <div class="form-group">
+                        <label for="saving-date">Дата</label>
+                        <input type="date" id="saving-date" required>
+                    </div>
+                    <button type="submit" class="primary-btn">Сохранить</button>
+                </form>
+            </div>
+        </div>
 
         <!-- Add/Edit Transaction Modal -->
         <div id="modal-transaction" class="modal">
@@ -211,7 +289,7 @@
                         <div class="amount-input-row">
                             <input type="number" id="tx-amount" step="0.01" min="0" required placeholder="0">
                             <select id="tx-currency" class="filter-select">
-                                <option value="BYN">Б̶</option>
+                                <option value="BYN">Br</option>
                                 <option value="RUB">₽</option>
                                 <option value="USD">$</option>
                                 <option value="EUR">€</option>
@@ -254,7 +332,7 @@
                         <div class="amount-input-row">
                             <input type="number" id="budget-limit" step="1" min="0" required placeholder="0">
                             <select id="budget-currency" class="filter-select">
-                                <option value="BYN">Б̶</option>
+                                <option value="BYN">Br</option>
                                 <option value="RUB">₽</option>
                                 <option value="USD">$</option>
                                 <option value="EUR">€</option>
@@ -292,6 +370,10 @@
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
                 <span>Статистика</span>
             </a>
+            <a href="#savings" class="nav-item" data-page="savings">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M8 8.5C8 8.5 9.5 7 12 7s4 1.5 4 3.25S14 13 12 13s-4 .75-4 2.75S9.5 19 12 19s4-1.5 4-1.5"/></svg>
+                <span>Копилка</span>
+            </a>
             <a href="#budget" class="nav-item" data-page="budget">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M2 9h20M2 15h20M9 3v18"/></svg>
                 <span>Бюджет</span>
@@ -309,6 +391,7 @@
     <script src="js/transactions.js"></script>
     <script src="js/statistics.js"></script>
     <script src="js/budget.js"></script>
+    <script src="js/savings.js"></script>
     <script src="js/settings.js"></script>
     <script src="js/app.js"></script>
 </body>

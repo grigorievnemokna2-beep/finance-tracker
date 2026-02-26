@@ -8,6 +8,7 @@ const DEFAULT_DATA = {
         expense: ['Еда', 'Транспорт', 'Жильё', 'Развлечения', 'Одежда', 'Здоровье', 'Подписки', 'Другое'],
         income: ['Зарплата', 'Подработка', 'Инвестиции', 'Другое']
     },
+    savings: [],
     budgets: {},
     settings: {
         theme: 'auto',
@@ -104,6 +105,23 @@ const Store = {
 
     removeBudget(category) {
         delete this._data.budgets[category];
+        this._save();
+    },
+
+    // --- Savings ---
+
+    getSavings() {
+        return this._data.savings || [];
+    },
+
+    addSaving(s) {
+        if (!this._data.savings) this._data.savings = [];
+        this._data.savings.unshift(s);
+        this._save();
+    },
+
+    deleteSaving(id) {
+        this._data.savings = (this._data.savings || []).filter(s => s.id !== id);
         this._save();
     },
 

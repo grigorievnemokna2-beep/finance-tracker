@@ -1,4 +1,4 @@
-const CACHE_NAME = 'finance-v1';
+const CACHE_NAME = 'finance-v2';
 const ASSETS = [
     './',
     './index.html',
@@ -10,10 +10,11 @@ const ASSETS = [
     './js/transactions.js',
     './js/statistics.js',
     './js/budget.js',
+    './js/savings.js',
     './js/settings.js',
     './manifest.json',
-    './icons/icon-192.png',
-    './icons/icon-512.png'
+    './icons/icon-192.svg',
+    './icons/icon-512.svg'
 ];
 
 // Install — cache assets
