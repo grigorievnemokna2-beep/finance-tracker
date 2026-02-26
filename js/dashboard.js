@@ -2,47 +2,63 @@
 
 const Dashboard = {
     render() {
-        const month = getCurrentMonth();
-        const transactions = filterTransactionsByMonth(Store.getTransactions(), month);
-        const settings = Store.getSettings();
-        const defCurrency = settings.defaultCurrency;
+        const allTransactions = Store.getTransactions();
 
-        let totalIncome = 0;
-        let totalExpense = 0;
-        let totalSaved = 0;
-
-        transactions.forEach(t => {
+        // --- Overall balance (all time) ---
+        let overallBalance = 0;
+        allTransactions.forEach(t => {
             const amountByn = convertToByn(t.amount, t.currency);
             if (t.type === 'income') {
-                totalIncome += amountByn;
-            } else if (t.category === 'Сбережение') {
-                totalSaved += amountByn;
+                overallBalance += amountByn;
             } else {
-                totalExpense += amountByn;
+                overallBalance -= amountByn;
             }
         });
 
-        const balance = totalIncome - totalExpense - totalSaved;
-
-        document.getElementById('balance-amount').textContent = formatMoney(balance, 'BYN');
-        document.getElementById('income-amount').textContent = formatMoney(totalIncome, 'BYN');
-        document.getElementById('expense-amount').textContent = formatMoney(totalExpense, 'BYN');
-
-        // Savings summary
-        const savingsCard = document.getElementById('savings-summary-card');
-        if (totalSaved > 0) {
-            savingsCard.style.display = '';
-            document.getElementById('savings-month-amount').textContent = formatMoney(totalSaved, 'BYN');
-        } else {
-            savingsCard.style.display = 'none';
-        }
+        document.getElementById('balance-amount').textContent = formatMoney(overallBalance, 'BYN');
 
         // Balance card color
         const balanceCard = document.querySelector('.balance-card');
-        if (balance < 0) {
+        if (overallBalance < 0) {
             balanceCard.style.background = 'linear-gradient(135deg, #e17055, #d63031)';
         } else {
             balanceCard.style.background = '';
+        }
+
+        // --- This month stats ---
+        const month = getCurrentMonth();
+        const monthTx = filterTransactionsByMonth(allTransactions, month);
+
+        let monthIncome = 0;
+        let monthExpense = 0;
+        let monthSaved = 0;
+
+        monthTx.forEach(t => {
+            const amountByn = convertToByn(t.amount, t.currency);
+            if (t.type === 'income') {
+                monthIncome += amountByn;
+            } else if (t.category === 'Сбережение') {
+                monthSaved += amountByn;
+            } else {
+                monthExpense += amountByn;
+            }
+        });
+
+        // Month label
+        const d = new Date(month + '-01T00:00:00');
+        const monthName = d.toLocaleDateString('ru-RU', { month: 'long', year: 'numeric' });
+        document.getElementById('month-label').textContent = monthName.charAt(0).toUpperCase() + monthName.slice(1);
+
+        document.getElementById('income-amount').textContent = formatMoney(monthIncome, 'BYN');
+        document.getElementById('expense-amount').textContent = formatMoney(monthExpense, 'BYN');
+
+        // Savings summary
+        const savingsCard = document.getElementById('savings-summary-card');
+        if (monthSaved > 0) {
+            savingsCard.style.display = '';
+            document.getElementById('savings-month-amount').textContent = formatMoney(monthSaved, 'BYN');
+        } else {
+            savingsCard.style.display = 'none';
         }
 
         // Recent transactions

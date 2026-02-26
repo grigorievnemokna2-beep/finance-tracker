@@ -180,6 +180,14 @@ a {
     letter-spacing: -1px;
 }
 
+.month-header {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: capitalize;
+    margin-bottom: 8px;
+}
+
 /* ===== Summary Cards ===== */
 .summary-cards {
     display: grid;
