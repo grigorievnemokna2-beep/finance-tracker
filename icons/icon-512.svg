@@ -1,4 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="100" fill="#6c5ce7"/>
-  <text x="256" y="320" font-family="Arial, sans-serif" font-size="260" font-weight="bold" fill="white" text-anchor="middle">₽</text>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7c6cf0"/>
+      <stop offset="100%" style="stop-color:#5a4bd1"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="110" fill="url(#bg)"/>
+  <!-- Буква Б (белорусский рубль) -->
+  <g transform="translate(256,256)" fill="none" stroke="white" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Вертикальная линия слева -->
+    <line x1="-75" y1="-107" x2="-75" y2="107"/>
+    <!-- Верхняя горизонтальная линия -->
+    <line x1="-75" y1="-107" x2="64" y2="-107"/>
+    <!-- Полукруг справа (нижняя часть Б) -->
+    <path d="M-75,0 L27,0 A53,53 0 0 1 27,107 L-75,107"/>
+    <!-- Горизонтальная черта — символ валюты -->
+    <line x1="-100" y1="22" x2="27" y2="22" stroke-width="16" opacity="0.9"/>
+  </g>
 </svg>

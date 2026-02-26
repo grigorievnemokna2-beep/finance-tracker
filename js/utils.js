@@ -5,7 +5,7 @@ function generateId() {
 }
 
 const CURRENCY_SYMBOLS = {
-    BYN: 'Br',
+    BYN: 'Б\u0336',
     RUB: '\u20bd',
     USD: '$',
     EUR: '\u20ac'
